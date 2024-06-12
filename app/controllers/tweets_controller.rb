@@ -12,7 +12,7 @@ class TweetsController < ApplicationController
   def create
     # Tweetモデルにcreateメソッドを利用して保存される
     Tweet.create(tweet_params)
-    # 保存されたらルートパスに遷移する
+    # 保存されたらルートパス（indexアクション）に遷移する
     redirect_to '/'
   end
 
