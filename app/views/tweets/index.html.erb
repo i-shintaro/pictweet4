@@ -1,6 +1,23 @@
 <div class="contents row">
   <% @tweets.each do |tweet| %>
     <div class="content_post" style="background-image: url(<%= tweet.image %>);">
+          <div class="more">
+        <span><%= image_tag 'arrow_top.png' %></span>
+        <ul class="more_list">
+          <li>
+            <%# （link_to '詳細', tweet_path(tweet.id)）をクリックするとブラウザはGETリクエストをルーティングに送信します。 %>
+            <%= link_to '詳細', tweet_path(tweet.id) %>
+          </li>
+          <li>
+            <%# （link_to '編集', edit_tweet_path(tweet.id)）をクリックするとブラウザはGETリクエストをルーティングに送信します。 %>
+            <%= link_to '編集', edit_tweet_path(tweet.id) %>
+          </li>
+          <li>
+            <%# tweet_path(tweet.id)は該当するツイートの削除対象URLを生成し、data: { turbo_method: :delete }はTurboフレームワークを用いてHTTP DELETEリクエストの形式でリンクを送信することを指定しています。※デフォルトのGETリクエストをDELETEリクエストに変換して送信 %>
+            <%= link_to '削除', tweet_path(tweet.id), data: { turbo_method: :delete } %>
+          </li>
+        </ul>
+      </div>
       <p><%= tweet.text %></p>
       <span class="name">
         <%= tweet.name %>
