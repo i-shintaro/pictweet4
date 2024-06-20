@@ -8,6 +8,8 @@
             <%# （link_to '詳細', tweet_path(tweet.id)）をクリックするとブラウザはGETリクエストをルーティングに送信します。 %>
             <%= link_to '詳細', tweet_path(tweet.id) %>
           </li>
+          <%# user_signed_in? が true であるかをチェック:ユーザーがログインしていることを確認します。current_user.id == tweet.user_id が true であるかをチェック:ログインしているユーザーがこのツイートを投稿したユーザーであることを確認します。この二つの条件が 両方とも真 である場合に、条件全体が true となり、条件内の処理が実行されます。 %>
+        <% if user_signed_in? && current_user.id == tweet.user_id %>
           <li>
             <%# （link_to '編集', edit_tweet_path(tweet.id)）をクリックするとブラウザはGETリクエストをルーティングに送信します。 %>
             <%= link_to '編集', edit_tweet_path(tweet.id) %>
@@ -16,6 +18,7 @@
             <%# tweet_path(tweet.id)は該当するツイートの削除対象URLを生成し、data: { turbo_method: :delete }はTurboフレームワークを用いてHTTP DELETEリクエストの形式でリンクを送信することを指定しています。※デフォルトのGETリクエストをDELETEリクエストに変換して送信 %>
             <%= link_to '削除', tweet_path(tweet.id), data: { turbo_method: :delete } %>
           </li>
+          <% end %>
         </ul>
       </div>
       <p><%= tweet.text %></p>
