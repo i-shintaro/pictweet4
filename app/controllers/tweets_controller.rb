@@ -1,6 +1,6 @@
 class TweetsController < ApplicationController
   before_action :set_tweet, only: [:edit, :show]
-  before_action :move_to_index, except: [:index, :show]
+  before_action :move_to_index, except: [:index, :show, :search]
 
   def index
     @tweets = Tweet.includes(:user).order("created_at DESC")
@@ -19,6 +19,12 @@ class TweetsController < ApplicationController
     redirect_to '/'
   end
 
+  def destroy
+    tweet = Tweet.find(params[:id])
+    tweet.destroy
+    redirect_to root_path
+  end
+
   def edit
   end
 
@@ -33,10 +39,8 @@ class TweetsController < ApplicationController
     @comments = @tweet.comments.includes(:user)
   end
 
-  def destroy
-    tweet = Tweet.find(params[:id])
-    tweet.destroy
-    redirect_to root_path
+  def search
+    @tweets = Tweet.search(params[:keyword])
   end
 
   # privateメソッドを定義し外部から呼び出されないようにする
