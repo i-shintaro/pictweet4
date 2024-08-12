@@ -48,7 +48,7 @@ class TweetsController < ApplicationController
   # tweet_paramsといったインスタンスメソッドを作成しメソッドの中身は
   # form_withから入力されてきた属性値をparamsに格納する
   # その際にストロングパラメーターを利用してモデルと属性（DBのカラム）を指定している
-  def tweet_params   
+  def tweet_params
     # tweetの情報を持つハッシュと、user_idを持つハッシュを結合
     params.require(:tweet).permit( :image, :text).merge(user_id: current_user.id)
   end
